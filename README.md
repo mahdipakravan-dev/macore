@@ -4,7 +4,7 @@
 </p>
 
 
-## Description
+## Description (V 0.0.2)
 
 Macore is a framework for building easy and fast <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
 
@@ -15,16 +15,24 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 * 1 - Install This nodejs Module From npm using : ``` npm i --save @mahdi.js/macore ```
 * 2 - Create Your <b>start.js|ts</b> With Below Code : 
 ```
+  //TypeScript : 
   import App from 'macore'
   App(host , port)
+
+  //javascript :
+  const App = require('macore')
+  App(host , port)
+
+  // Also You Can Config view+session+cookie !
+  App(host , port , viewConfig , sessionConfig , cookieConfig)
 ```
-* 3 - Your [Express App] + [Template Engine] + [Session] + [Express] Configured !
+* 3 - Your [Express App] + [Template Engine] + [Session] + [Cookie] Configured !
 * 4 - Enjoy & * me on github :)
 
 ## What is Inside macore ?
 
 ### `axios`
-**You Can Send Any Request Using axios inside this package**
+**Send Any Request Using axios inside this package**
 ```
   sendRequest("path" , header , Request_Methods.METHOD , body) 
 ```
@@ -34,10 +42,4 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 * Read Document Inside [chalk](https://npmjs.com/package/chalk)
 ```
   console.log(ch.red("Hello With Red Color"))
-```
-
-### `view + cookie + session`
-**Config Your template engine realy easy**
-```
-  App(host , port , viewConfig , cookieConfig , sessionConfig)
 ```
