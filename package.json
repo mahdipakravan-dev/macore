@@ -1,5 +1,5 @@
 {
-  "name": "macore",
+  "name": "@mahdi.js/macore",
   "version": "0.0.1",
   "description": "macore node_module Implemented by typescript",
   "main": "dist/index.js",
