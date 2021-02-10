@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-  <h1 align="center">Macore <span>Mahdi Nodejs Core</span></h1>
+  <h1 align="center">Macore <span>(Mahdi.js Nodejs Core)</span></h1>
 </p>
 
 
