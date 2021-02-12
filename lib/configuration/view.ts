@@ -1,5 +1,5 @@
 import * as express from "express";
-import flash = require('express-flash')
+const flash = require('connect-flash')
 
 export interface IViewConfig {
   viewEngine ?: string
@@ -12,7 +12,6 @@ export interface IViewConfig {
 }
 
 export default function view(app:express.Application , viewConfig : IViewConfig){
-  app.use(flash())
   app.set("view engine" , viewConfig.viewEngine || "ejs")
   app.set("views" , viewConfig.viewDirectory || "views")
   app.use(express.static(viewConfig.staticDirectory || "public"));

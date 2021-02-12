@@ -29,15 +29,15 @@ export default function AppFunc(
   app.set("port" , port)
 
   bodyparser(app)
-  if(viewConfig) view(app , viewConfig)
   if(cookieConfig) cookie(app , cookieConfig)
   if(sessionConfig) session(app , sessionConfig)
+  if(viewConfig) view(app , viewConfig) 
 
   serve(app)
   return app
-
 }
 
 export const ch = chalk
 export const sendRequest = axiosSendRequest
-export const configuration = config 
+export const configuration = config
+export const Express = express
