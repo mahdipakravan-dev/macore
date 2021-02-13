@@ -1,5 +1,5 @@
 import { Application } from "express";
-import * as expressSession from 'express-session'
+import expressSession from 'express-session'
 
 export interface ISessionConfig {
   secret: string,
@@ -14,5 +14,5 @@ export default function session(app:Application , config:ISessionConfig){
     saveUninitialized: config.saveUninitialized || true,
     resave : config.resave || true ,
     cookie: config.cookie || {}
-}))
+  }))
 }

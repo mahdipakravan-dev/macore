@@ -1,5 +1,5 @@
 import { Application } from "express";
-import * as bodyParser from 'body-parser'
+import bodyParser from 'body-parser'
 
 export function bodyparser(app:Application){
   app.use(bodyParser.json({"type": "application/json"}))

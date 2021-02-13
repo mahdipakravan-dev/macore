@@ -4,7 +4,7 @@
 </p>
 
 
-## Description (V 0.0.4)
+## Description (V 0.0.5)
 
 Macore is a framework for building easy and fast <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
 
@@ -31,15 +31,21 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 
 ## What is Inside macore ?
 
-### `axios`
+### `ApiService (Send Request)`
 **Send Any Request Using axios inside this package**
 ```
-  sendRequest("path" , header , Request_Methods.METHOD , body) 
+    import {ApiService} from '@mahdi.js/macore'
+    const apiInstance = new ApiService("https://jsonplaceholder.typicode.com/")
+    await apiInstance.callService("todos/1" , Request_Methods.GET)
+    
+    //Also You Can Send Type of your Request & Response in Typescript
+    await apiInstance.callService<RequestInterface , ResponseInterface>("todos/1" , Request_Methods.GET) 
 ```
 
 ### `chalk`
 **console.log With Fucking Great TextColors!**
 * Read Document Inside [chalk](https://npmjs.com/package/chalk)
 ```
+  import {ch} from '@mahdi.js/macore'
   console.log(ch.red("Hello With Red Color"))
 ```
