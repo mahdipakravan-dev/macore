@@ -1,38 +1,48 @@
-import mongoose , {SchemaOptions , Schema , Model , Document} from 'mongoose'
-import {ORM} from "../types/interfaces";
-import {CustomSchemaDefinition} from "../types/mongo";
+import mongoose, {
+    Document,
+    Error,
+    Model, ModelPopulateOptions,
+    QueryFindOneAndUpdateOptions,
+    Schema,
+    SchemaOptions
+} from "mongoose";
+import { ObjectId } from "bson";
+import { FilterQuery, UpdateQuery } from "mongodb";
+import { CustomSchemaDefinition, DeleteResponse } from "../types/mongo";
+import { ORM } from "../types/mongo";
 
-export abstract class MongoBaseRepository<ISchema> implements ORM<ISchema>{
-
-    abstract define(): CustomSchemaDefinition<ISchema>
+export abstract class BaseRepository<T> implements ORM<T> {
+    abstract definition(): CustomSchemaDefinition<T>;
 
     protected options: SchemaOptions = { timestamps: true };
     protected schema: Schema;
-    protected readonly _model: Model<ISchema & Document>;
+    protected readonly _model: Model<T & Document>;
 
-    constructor(protected collection:string) {
-        // @ts-ignore
-        this.schema = new mongoose.Schema(this.define(), this.options);
+    constructor(protected collection?: string) {
+        this.schema = new mongoose.Schema(this.definition(), this.options);
 
-        this.initialIndexes();
-        this.initialPlugins();
+        this.initiateIndexes();
+        this.initiatePlugins();
 
-        this._model = mongoose.model<ISchema & Document>(this.constructor.name, this.schema, this.collection);
+        this._model = mongoose.model<T & Document>(this.constructor.name, this.schema, this.collection);
     }
 
-    initialIndexes(){}
+    protected initiateIndexes() {
+    }
 
-    initialPlugins(){}
+    protected initiatePlugins() {
+    }
 
-    async create(data: any): Promise<ISchema & Document> {
+    async create (item: Partial<T>): Promise<T & Document> {
         try {
-            return await this._model.create(data) 
-        }catch (e){
+            return await this._model.create(item as any);
+        } catch (e) {
             throw new Error(e)
         }
     }
 
-    find(data: Partial<ISchema>){
-        return this._model.find(data as any)
+    find(data: any): any {
+        return this._model.find(data)
     }
 }
+

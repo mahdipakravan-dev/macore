@@ -5,7 +5,3 @@ export enum Request_Methods {
     patch = "patch"
 }
 
-export interface ORM<T>{
-    create(data:any) : Promise<T>
-    find(data:any) : any
-}

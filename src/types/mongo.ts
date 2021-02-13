@@ -6,3 +6,8 @@ export type CustomSchemaDefinition<T>  = {
 };
 
 export type DeleteResponse = { ok?: number | undefined, n?: number | undefined };
+
+export interface ORM<T>{
+    create(data:any) : Promise<T>
+    find(data:any) : any
+}
