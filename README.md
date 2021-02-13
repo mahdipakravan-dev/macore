@@ -17,17 +17,17 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 ```
   //TypeScript : 
   import App from 'macore'
-  App(host , port)
+  App(port)
 
   //javascript :
   const App = require('macore')
-  App(host , port)
+  App(port)
 
   // Also You Can Config view+session+cookie !
-  App(host , port , viewConfig , sessionConfig , cookieConfig)
+  App(port , host , viewConfig , sessionConfig , cookieConfig)
 ```
-* 3 - Your [Express App] + [Template Engine] + [Session] + [Cookie] Configured !
-* 4 - Enjoy & * me on github :)
+* 3 - Your <b>Macore</b> App Configured !
+* 4 - Enjoy & <u>Please STAR me on [github](https://github.com/engpakravn/macore) :)</u>
 
 ## What is Inside macore ?
 

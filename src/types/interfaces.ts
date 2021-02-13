@@ -4,3 +4,8 @@ export enum Request_Methods {
     DELETE = "delete" ,
     patch = "patch"
 }
+
+export interface ORM<T>{
+    create(data:any) : Promise<T>
+    find(data:any) : any
+}

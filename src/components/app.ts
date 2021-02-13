@@ -38,7 +38,7 @@ export default class App {
     public listen(port ?: string|number , callback ?: (...args : any[]) => void){
         this._app.listen(this.get("port") || port , callback)
         console.log(`
-        -------- ${chalk.blue("Service STARTED ON : ")} => ${this.get("host")}://${this.get("port")} --------------------`)
+        -------- ${chalk.blue("Server STARTED ON : ")} => ${this.get("host")}:${this.get("port")} --------------------`)
     }
 
     public route(path:string , method : Request_Methods , ...middlewareAndControllers : any[]){
