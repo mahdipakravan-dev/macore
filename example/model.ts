@@ -1,22 +1,28 @@
-import * as mongoose from "mongoose";
-import {MongoBaseRepository} from "../lib/utils/mongo";
-import {SchemaDefinition} from "mongoose";
+import {MongoBaseRepository} from "../src/utils/mongo";
+import {CustomSchemaDefinition} from "../src/types/mongo";
 
-export interface IUser extends mongoose.Document{
-    name : string
-    family : string
+export interface IUsers {
+    name : string ,
+    lastName : string ,
+    phoneNumber : string
 }
 
-class User extends MongoBaseRepository<IUser>{
+class User extends MongoBaseRepository<IUsers>{
 
-    define(): SchemaDefinition {
-        return{
-            name : String,
-            family: String
-        }
+    definition(): CustomSchemaDefinition<IUsers> {
+        return {
+            name : {type : String , required : true} ,
+            lastName : {type : String , required : true} ,
+            phoneNumber : {type : String , required : true , unique : true}
+        };
     }
+
+    protected initiateIndexes(): void {
+
+    }
+    protected initiatePlugins(): void {
+    }
+
 }
 
-const userModel = new User()
-
-export default userModel
+export default new User("users")

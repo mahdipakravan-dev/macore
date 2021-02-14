@@ -13,6 +13,7 @@ import session, {ISessionConfig} from "../configuration/session";
 import view, {IViewConfig} from "../configuration/view";
 import {Request_Methods} from "../types/interfaces";
 import ApiServices from "../utils/apiService";
+import MongoAdaptor from '../configuration/mongo'
 
 export default class App {
     _app : Express = express()
@@ -22,7 +23,8 @@ export default class App {
         host ?: string ,
         cookieSecret ?: string|null ,
         sessionConfig ?: ISessionConfig | null ,
-        viewConfig ?: IViewConfig
+        viewConfig ?: IViewConfig|null ,
+        mongoConfig ?: boolean
     ) {
         this._app.set("port" , port || 3000 )
         this._app.set("host" , host || "localhost")
@@ -33,6 +35,7 @@ export default class App {
         if(cookieSecret) cookie(this._app , cookieSecret)
         if(sessionConfig) session(this._app , sessionConfig)
         if(viewConfig) view(this._app , viewConfig)
+        if(mongoConfig) new MongoAdaptor(this)
     }
 
     public listen(port ?: string|number , callback ?: (...args : any[]) => void){
@@ -53,13 +56,17 @@ export default class App {
         return this._app.set(key,value)
     }
 
+    getEnv(key:string) : string|any{
+        return process.env[key]
+    }
+
     private envConfig(){
         if(fs.existsSync(".env")){
             console.log(chalk.green(".ENV File Found Success"))
-            dotenv.config({path : ".env"})
+            return dotenv.config({path : ".env"})
         } else if(fs.existsSync('.env.example')){
             console.log(chalk.yellow(".ENV File is Under EXAMPLE Mode , Everything is OK But Change it in FUTURE"))
-            dotenv.config({path : ".env.example"})
+            return dotenv.config({path : ".env.example"})
         }
     }
 
