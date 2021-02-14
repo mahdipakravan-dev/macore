@@ -10,7 +10,16 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 
 <p>Under the hood, Macore makes use of <a href="https://expressjs.com/" target="_blank">Express</a> .
 
-## Getting started
+## Table Of Macore Features
+
+- [Quick Start](#quick-start)
+- [Utilities](#utilities)
+    - [ApiService](#apiservice)
+    - [Chalk](#chalk)
+    - [AllowOrigin](#allow-origin)
+- [ORM](#orm)
+
+## Quick Start
 
 * 1 - Install This nodejs Module From npm using : ``` npm i --save @mahdi.js/macore ```
 * 2 - Create Your <b>start.js|ts</b> With Below Code : 
@@ -24,14 +33,23 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
   App(port)
 
   // Also You Can Config view+session+cookie !
-  App(port , host , viewConfig , sessionConfig , cookieConfig)
+  App(
+    port , 
+    host , 
+    viewConfig ,  // config OR {} OR Null(if you not need view)
+    sessionConfig , // config OR {} OR Null(if you not need session)
+    cookieConfig , // config OR {} OR Null(if you not need cookie)
+    true // MongoConnection => true OR false
+  ) 
 ```
 * 3 - Your <b>Macore</b> App Configured !
 * 4 - Enjoy & <u>Please STAR me on [github](https://github.com/engpakravn/macore) :)</u>
 
-## What is Inside macore ?
+## Utilities
+This is Really Can Help You in any projects
+> Note: you can cancel several requests with the same cancel token.
 
-### `ApiService (Send Request)`
+### `ApiService`
 **Send Any Request Using axios inside this package**
 ```
     import {ApiService} from '@mahdi.js/macore'
@@ -44,13 +62,26 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 
 ### `chalk`
 **console.log With Fucking Great TextColors!**
-* Read Document Inside [chalk](https://npmjs.com/package/chalk)
+> You Can Read Document Inside [chalk](https://npmjs.com/package/chalk)
 ```
   import {ch} from '@mahdi.js/macore'
   console.log(ch.red("Hello With Red Color"))
 ```
 
-## How Can We Use Macore ORM ?
+### `Allow Origin`
+**To Fix Connection With Your API Problems**
+```
+  import AllowOriginMd from '@mahdi.js/macore/middlewares/origin'
+  app.use(AllowOriginMd)
+```
+
+<br/>
+<hr/>
+
+
+## ORM
+> In This Version You Just Can Use MongoORM in the future we use typeORM :) 
+
 1 - Create a File For Your Model , Example : User.ts
 ```
   import {MongoBaseRepository} from "@mahdi.js/macore/utils/mongo";
