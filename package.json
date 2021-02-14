@@ -8,7 +8,12 @@
     "prepublish": "npm run build",
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs framework" , "web framework" ,
+    "nodejs orm" , "orm" , "typescript orm" ,
+    "node.js library" , "node.js orm" , "mongo orm"
+    "mahdi pakravan" , "mahdipakravan"
+  ],
   "repository": "https://github.com/engpakravan/macore",
   "homepage": "https://github.com/engpakravan/macore",
   "author": "mahdi.js <mahdipakravan79@gmail.com>",

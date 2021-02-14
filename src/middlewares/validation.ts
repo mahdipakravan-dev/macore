@@ -8,7 +8,6 @@ export function MacoreValidator(type:any , callbackUrl ?: string){
     return(req:Request , res:Response , next:NextFunction) => {
         validate(plainToClass(type , req.body))
             .then(errors => {
-                console.log(errors)
                 if(errors.length > 0) {
                     if(callbackUrl)
                         return res.redirect(callbackUrl)
