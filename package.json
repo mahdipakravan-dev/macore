@@ -7,8 +7,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc",
-    "dev": "nodemon example/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon example/index.ts"
   },
   "keywords": [],
   "repository": "https://github.com/engpakravan/macore",
