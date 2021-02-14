@@ -20,6 +20,7 @@
     "mahdi pakravan",
     "mahdipakravan"
   ],
+  "preferGlobal": true,
   "repository": "https://github.com/engpakravan/macore",
   "homepage": "https://github.com/engpakravan/macore",
   "author": "mahdi.js <mahdipakravan79@gmail.com>",
@@ -49,6 +50,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongoose": "5.5.2"
+    "inquirer": "^7.3.3",
+    "mongoose": "5.5.2",
+    "pad": "^3.2.0"
   }
 }
