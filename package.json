@@ -9,10 +9,16 @@
     "build": "tsc"
   },
   "keywords": [
-    "nodejs framework" , "web framework" ,
-    "nodejs orm" , "orm" , "typescript orm" ,
-    "node.js library" , "node.js orm" , "mongo orm"
-    "mahdi pakravan" , "mahdipakravan"
+    "nodejs framework",
+    "web framework",
+    "nodejs orm",
+    "orm",
+    "typescript orm",
+    "node.js library",
+    "node.js orm",
+    "mongo orm",
+    "mahdi pakravan",
+    "mahdipakravan"
   ],
   "repository": "https://github.com/engpakravan/macore",
   "homepage": "https://github.com/engpakravan/macore",
@@ -36,6 +42,7 @@
     "chalk": "^4.1.0",
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
+    "commander": "^7.0.0",
     "config": "^3.3.3",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
