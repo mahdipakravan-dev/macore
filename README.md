@@ -13,7 +13,9 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 ## Table Of Macore Features
 
 - [Quick Start](#quick-start)
+- [Router](#router)
 - [Utilities](#utilities)
+    - [Validation](#validation)
     - [ApiService](#apiservice)
     - [Chalk](#chalk)
     - [AllowOrigin](#allow-origin)
@@ -43,7 +45,37 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
   ) 
 ```
 * 3 - Your <b>Macore</b> App Configured !
-* 4 - Enjoy & <u>Please STAR me on [github](https://github.com/engpakravn/macore) :)</u>
+
+<br/>
+<hr/>
+
+## Router
+
+```
+  //const app = new App(port , host , ...)
+  app.route("/" , Request_Methods.GET , (req:Request , res:Response , next:NextFunction) => {res.send("Hello Macore")})
+```
+
+## Validation
+Macore Validator is Using [class-validator](https://github.com/typestack/class-validator)
+1-Create Your dto(data transfer object) file , Example : Signin.dto.ts
+```
+  import { IsString, Length } from 'class-validator';
+  export default class SigninDto {
+      @IsString()
+      public name!: string;
+  }
+```
+2-Set This Dto To Your app as a midleware
+```
+  app.route("/" , Request_Methods.POST , MacoreValidator(SignInDto) , Controller)
+  
+  /*
+    * also you can pass your callback url if you are using view
+    * this will be rediredct to callbackUrl
+  */
+  app.route("/" , Request_Methods.POST , MacoreValidator(SignInDto , "/home") , Controller)
+```
 
 ## Utilities
 This is Really Can Help You in any projects
