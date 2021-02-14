@@ -4,7 +4,7 @@
 </p>
 
 
-## Description (V 0.0.5)
+## Description (V 0.0.6) MongoORM IMPLEMENTED !!!
 
 Macore is a framework for building easy and fast <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
 
@@ -48,4 +48,34 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 ```
   import {ch} from '@mahdi.js/macore'
   console.log(ch.red("Hello With Red Color"))
+```
+
+## How Can We Use Macore ORM ?
+1 - Create a File For Your Model , Example : User.ts
+```
+  import {MongoBaseRepository} from "@mahdi.js/macore/utils/mongo";
+  import {CustomSchemaDefinition} from "@mahdi.js/macore/types/mongo";
+  
+  export interface IUsers {
+    name : string
+  }
+  
+  class User extends MongoBaseRepository<IUsers>{
+
+    definition(): CustomSchemaDefinition<IUsers> {
+        return {
+            name : {type : String , required : true}
+        };
+    }
+
+    protected initiateIndexes(): void {}
+    protected initiatePlugins(): void {}
+
+  }
+
+  export default new User("users")
+```
+2- End! , Use EveryWhere :)
+```
+    const users = await User.find({})
 ```
