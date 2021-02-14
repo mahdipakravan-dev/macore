@@ -2,6 +2,8 @@ import App from "../src/components/app";
 import {NextFunction, Request, Response} from "express";
 import {Request_Methods} from "../src/types/interfaces";
 import User from './model'
+import {MacoreValidator} from "../src/middlewares/validation";
+import SigninDto from "./signin.dto";
 
 const app = new App(3000 , "localhost" , null , null , null , true)
 
@@ -20,5 +22,11 @@ app.route("/new" , Request_Methods.GET , async (req:Request , res:Response , nex
 
     res.send("Ok")
 })
+
+app.route("/validation" , Request_Methods.POST , MacoreValidator(SigninDto) ,
+    (req:Request , res:Response , next:NextFunction) => {
+        res.send("Ok")
+    }
+)
 
 app.listen()
