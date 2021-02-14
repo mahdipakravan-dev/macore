@@ -2,12 +2,11 @@
   "name": "@mahdi.js/macore",
   "version": "0.0.6",
   "description": "macore is a nodejs core using typescript and express",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/components/app.js",
+  "types": "dist/components/app.d.ts",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "tsc",
-    "dev": "nodemon example/index.ts"
+    "build": "tsc"
   },
   "keywords": [],
   "repository": "https://github.com/engpakravan/macore",

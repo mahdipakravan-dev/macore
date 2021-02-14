@@ -1,2 +1,8 @@
 .vscode
 lib
+src
+.env
+.env.example
+.gitignore
+yarn.lock
+.idea
