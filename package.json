@@ -1,6 +1,6 @@
 {
   "name": "@mahdi.js/macore",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "macore is a nodejs core using typescript and express",
   "main": "dist/components/app.js",
   "types": "dist/components/app.d.ts",

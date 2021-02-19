@@ -7,7 +7,7 @@ import express , {Express} from "express";
 import chalk from 'chalk'
 import * as fs from "fs";
 import dotenv from 'dotenv'
-import {bodyparser} from "../configuration/bodyparser";
+import BodyParser from "../configuration/bodyparser";
 import cookie from "../configuration/cookie";
 import session, {ISessionConfig} from "../configuration/session";
 import view, {IViewConfig} from "../configuration/view";
@@ -17,32 +17,50 @@ import MongoAdaptor from '../configuration/mongo'
 import i18next from 'i18next'
 import i18nextMiddleware, { I18next } from "i18next-express-middleware"
 import {Ii18Config} from '../configuration/i18'
+import { Adaptor, AdaptorDefinition } from "../types/adaptors";
 
 export default class App {
     _app : Express = express()
     I18Next : any ;
 
     constructor(
-        port ?: number|string ,
-        host ?: string ,
-        cookieSecret ?: string|null ,
-        sessionConfig ?: ISessionConfig | null ,
-        viewConfig ?: IViewConfig|null ,
-        mongoConfig ?: boolean ,
-        i18Config ?: Ii18Config | null
-    ) {
-        this._app.set("port" , port || 3000 )
-        this._app.set("host" , host || "localhost")
+        hostAndPort : {host?:string , port?: string|number} | null ,
+        ...adaptors : AdaptorDefinition[]
+    ){
+        
+        this._app.set("port" , hostAndPort?.port || 3000 )
+        this._app.set("host" , hostAndPort?.host || "localhost")
 
-        this.envConfig()
-
-        bodyparser(this._app)
-        if(cookieSecret) cookie(this._app , cookieSecret)
-        if(sessionConfig) session(this._app , sessionConfig)
-        if(viewConfig) view(this._app , viewConfig)
-        if(mongoConfig) new MongoAdaptor(this)
-        if(i18Config) this.configI18(i18Config)
+        for (let i = 0; i < adaptors.length; i++) {
+            let adaptorClass: any = adaptors[i];
+            const adaptor = new adaptorClass(this);
+            adaptors[adaptor.constructor.name] = adaptor;
+            console.log(adaptor.constructor.name)
+            adaptor.init();
+        }
     }
+
+    // constructor(
+    //     port ?: number|string ,
+    //     host ?: string ,
+    //     cookieSecret ?: string|null ,
+    //     sessionConfig ?: ISessionConfig | null ,
+    //     viewConfig ?: IViewConfig|null ,
+    //     mongoConfig ?: boolean ,
+    //     i18Config ?: Ii18Config | null
+    // ) {
+    //     this._app.set("port" , port || 3000 )
+    //     this._app.set("host" , host || "localhost")
+
+    //     this.envConfig()
+
+    //     new BodyParser(this)
+    //     if(cookieSecret) cookie(this._app , cookieSecret)
+    //     if(sessionConfig) session(this._app , sessionConfig)
+    //     if(viewConfig) view(this._app , viewConfig)
+    //     if(mongoConfig) new MongoAdaptor(this)
+    //     if(i18Config) this.configI18(i18Config)
+    // }
 
     configI18(i18Config : Ii18Config){
         i18next
@@ -85,6 +103,10 @@ export default class App {
 
     set(key:string , value:any) {
         return this._app.set(key,value)
+    }
+
+    use(middleware : any){
+        this._app.use(middleware)
     }
 
     getEnv(key:string) : string|any{
