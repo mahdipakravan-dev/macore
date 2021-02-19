@@ -4,9 +4,9 @@
 </p>
 
 
-## Description (V 0.0.6) MongoORM IMPLEMENTED !!!
+## Description (V 0.0.7)
 
-Macore is a framework for building easy and fast <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
+Macore is a framework for building <b>easy , fast and MultiLangual</b> <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
 
 <p>Under the hood, Macore makes use of <a href="https://expressjs.com/" target="_blank">Express</a> .
 
@@ -18,7 +18,7 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
     - [Validation](#validation)
     - [ApiService](#apiservice)
     - [Chalk](#chalk)
-    - [AllowOrigin](#allow-origin)
+    - [MultiLingual](#multilingual)
 - [ORM](#orm)
 
 ## Quick Start
@@ -41,7 +41,8 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
     viewConfig ,  // config OR {} OR Null(if you not need view)
     sessionConfig , // config OR {} OR Null(if you not need session)
     cookieConfig , // config OR {} OR Null(if you not need cookie)
-    true // MongoConnection => true OR false
+    true // MongoConnection => true OR false ,
+    MultiLingualConfig // config OR Null (if you not need i18Next[MultiLingual])
   ) 
 ```
 * 3 - Your <b>Macore</b> App Configured !
@@ -100,14 +101,40 @@ This is Really Can Help You in any projects
   console.log(ch.red("Hello With Red Color"))
 ```
 
-### `Allow Origin`
-**To Fix Connection With Your API Problems**
+### `MultiLingual`
+**Create MultiLingual Server-side App Easssssyyyy**
+1 - Config : this example for an english + spanish Server-side app
 ```
-  import AllowOriginMd from '@mahdi.js/macore/middlewares/origin'
-  app.use(AllowOriginMd)
+  new App(... , {
+    lng : "en" ,
+    fallbackLng : "en" ,
+    preload : ["en" , "es"] ,
+    saveMissing : false ,
+    load : "languageOnly" ,
+    resources : {
+      en : {translation : {"greeting" : "Hello {{name}}" , 
+      es : {translation : {"greeting" : "Hallo {{name}}  "}}
+    }
+  })
+```
+2 - Use it Using <b>app.t</b> Function
+```
+  app.t(
+    "greeting" ,
+    "en" , //This Lang
+    {name : "Mahdi"}   // For pass Value Of {{name}}
+  )
 ```
 
 <br/>
+
+> Also You Can Use it as Middleware or something else
+For Example , This is Your Middleware
+```
+  function (req , res , next) {
+    this.app.changeLanguage(req.query.lang || "en")
+  }
+```
 <hr/>
 
 

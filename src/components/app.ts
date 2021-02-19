@@ -14,9 +14,13 @@ import view, {IViewConfig} from "../configuration/view";
 import {Request_Methods} from "../types/interfaces";
 import ApiServices from "../utils/apiService";
 import MongoAdaptor from '../configuration/mongo'
+import i18next from 'i18next'
+import i18nextMiddleware, { I18next } from "i18next-express-middleware"
+import {Ii18Config} from '../configuration/i18'
 
 export default class App {
     _app : Express = express()
+    I18Next : any ;
 
     constructor(
         port ?: number|string ,
@@ -24,7 +28,8 @@ export default class App {
         cookieSecret ?: string|null ,
         sessionConfig ?: ISessionConfig | null ,
         viewConfig ?: IViewConfig|null ,
-        mongoConfig ?: boolean
+        mongoConfig ?: boolean ,
+        i18Config ?: Ii18Config | null
     ) {
         this._app.set("port" , port || 3000 )
         this._app.set("host" , host || "localhost")
@@ -36,6 +41,32 @@ export default class App {
         if(sessionConfig) session(this._app , sessionConfig)
         if(viewConfig) view(this._app , viewConfig)
         if(mongoConfig) new MongoAdaptor(this)
+        if(i18Config) this.configI18(i18Config)
+    }
+
+    configI18(i18Config : Ii18Config){
+        i18next
+            .init(i18Config)
+        this._app.use(i18nextMiddleware.handle(i18next))
+        this.I18Next = i18next
+    }
+
+    /**
+     * @param str @REQUIRED : key of Your Text
+     * @param lan @OPTIONAL : your configured lang preload , if not = lng
+     * @param val @OPTIONAL : if your key have {{val}} , You can Pass This arg
+     */
+    public t(str:any , lan?:string , val?:any){
+        if(lan) this.I18Next.changeLanguage(lan)
+        if(!val) return this.I18Next.t(str)
+        return this.I18Next.t(str , val)
+    }
+
+    /**
+     * @param lan  @REQUIRED : lang preload
+     */
+    public changeLanguage(lan:string) : void{
+        this.I18Next.changeLanguage(lan)
     }
 
     public listen(port ?: string|number , callback ?: (...args : any[]) => void){

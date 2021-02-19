@@ -4,12 +4,11 @@ import {Request_Methods} from "../src/types/interfaces";
 import User from './model'
 import {MacoreValidator} from "../src/middlewares/validation";
 import SigninDto from "./signin.dto";
+import Langs from './locales'
 
-const app = new App(3000 , "localhost" , null , null , null , true)
+const app = new App(3000 , "localhost" , null , null , null , false , Langs)
 
 app.route("/" , Request_Methods.GET , async (req:Request , res:Response , next:NextFunction) => {
-    const users = await User.find({})
-    console.log(users)
     res.send("Hi")
 })
 
