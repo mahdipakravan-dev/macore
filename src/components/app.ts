@@ -7,10 +7,9 @@ import express , {Express} from "express";
 import chalk from 'chalk'
 import * as fs from "fs";
 import dotenv from 'dotenv'
-import {bodyparser} from "../configuration/bodyparser";
-import cookie from "../configuration/cookie";
-import session, {ISessionConfig} from "../configuration/session";
-import view, {IViewConfig} from "../configuration/view";
+import cookie from "../adaptors/cookie";
+import session, {ISessionConfig} from "../adaptors/session";
+import view, {IViewConfig} from "../adaptors/view";
 import {Request_Methods} from "../types/interfaces";
 import ApiServices from "../utils/apiService";
 import MongoAdaptor from '../adaptors/mongo'
@@ -36,7 +35,6 @@ export default class App {
 
         this.envConfig()
 
-        expressConfig(this._app)
         if(cookieSecret) cookie(this._app , cookieSecret)
         if(sessionConfig) session(this._app , sessionConfig)
         if(viewConfig) view(this._app , viewConfig)
