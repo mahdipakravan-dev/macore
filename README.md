@@ -4,13 +4,11 @@
 </p>
 
 
-## Description (V 0.0.6) MongoORM IMPLEMENTED !!!
+## Description (V 0.0.7)
 
-Macore is a framework for building easy and fast <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
+Macore is a framework for building <b>easy , fast and MultiLangual</b> <a href="http://nodejs.org" target="_blank">Node.js</a> server-side applications. It uses modern JavaScript, is built with  <a href="http://www.typescriptlang.org" target="_blank">TypeScript</a> and combines elements of OOP (Object Oriented Programming), FP (Functional Programming) , DP (Design Patterns)
 
 <p>Under the hood, Macore makes use of <a href="https://expressjs.com/" target="_blank">Express</a> .
-
-<h5>Also I Use Lot Of Design Patterns inside this Module !!</a> .
 
 ## Table Of Macore Features
 
@@ -20,6 +18,7 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
     - [Validation](#validation)
     - [ApiService](#apiservice)
     - [Chalk](#chalk)
+    - [MultiLingual](#multilingual)
 - [ORM](#orm)
 - [Payment](#payment)
   - [Custom Payment](#payment-custom)
@@ -104,7 +103,40 @@ This is Really Can Help You in any projects
   console.log(ch.red("Hello With Red Color"))
 ```
 
+### `MultiLingual`
+**Create MultiLingual Server-side App Easssssyyyy**
+1 - Config : this example for an english + spanish Server-side app
+```
+  new App(... , {
+    lng : "en" ,
+    fallbackLng : "en" ,
+    preload : ["en" , "es"] ,
+    saveMissing : false ,
+    load : "languageOnly" ,
+    resources : {
+      en : {translation : {"greeting" : "Hello {{name}}" , 
+      es : {translation : {"greeting" : "Hallo {{name}}  "}}
+    }
+  })
+```
+2 - Use it Using <b>app.t</b> Function
+```
+  app.t(
+    "greeting" ,
+    "en" , //This Lang
+    {name : "Mahdi"}   // For pass Value Of {{name}}
+  )
+```
+
 <br/>
+
+> Also You Can Use it as Middleware or something else
+For Example , This is Your Middleware
+```
+  function (req , res , next) {
+    this.app.changeLanguage(req.query.lang || "en")
+  }
+```
 <hr/>
 
 

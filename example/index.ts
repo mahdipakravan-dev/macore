@@ -7,11 +7,7 @@ import SigninDto from "./signin.dto";
 import Langs from './locales'
 import BodyParser from "../src/configuration/bodyparser";
 
-// const app = new App(3000 , "localhost" , null , null , null , false , Langs)
-const app = new App(
-    {} ,
-    BodyParser
-)
+const app = new App(3000 , "localhost" , null , null , null , false , Langs)
 
 app.route("/" , Request_Methods.GET , async (req:Request , res:Response , next:NextFunction) => {
     res.send("Hi")
