@@ -7,13 +7,13 @@ import express , {Express} from "express";
 import chalk from 'chalk'
 import * as fs from "fs";
 import dotenv from 'dotenv'
-import {express as expressConfig} from "../adaptors/express";
-import cookie from "../adaptors/cookie";
-import session, {ISessionConfig} from "../adaptors/session";
-import view, {IViewConfig} from "../adaptors/view";
+import {bodyparser} from "../configuration/bodyparser";
+import cookie from "../configuration/cookie";
+import session, {ISessionConfig} from "../configuration/session";
+import view, {IViewConfig} from "../configuration/view";
 import {Request_Methods} from "../types/interfaces";
 import ApiServices from "../utils/apiService";
-import MongoAdaptor from '../adaptors/mongo'
+import MongoAdaptor from '../configuration/mongo'
 
 export default class App {
     _app : Express = express()
@@ -42,10 +42,6 @@ export default class App {
         this._app.listen(this.get("port") || port , callback)
         console.log(`
         -------- ${chalk.blue("Server STARTED ON : ")} => ${this.get("host")}:${this.get("port")} --------------------`)
-    }
-
-    public group(path:string , middlewares : any[] , ){
-        this._app.use(path)
     }
 
     public route(path:string , method : Request_Methods , ...middlewareAndControllers : any[]){

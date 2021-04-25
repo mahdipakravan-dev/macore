@@ -1,6 +1,6 @@
 {
   "name": "@mahdi.js/macore",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "macore is a nodejs core using typescript and express",
   "main": "dist/components/app.js",
   "types": "dist/components/app.d.ts",
@@ -39,6 +39,7 @@
     "typescript": "^4.1.4"
   },
   "dependencies": {
+    "@types/i18next-express-middleware": "^1.7.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.0",
@@ -51,6 +52,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "i18next": "^19.8.9",
+    "i18next-express-middleware": "^2.0.0",
     "inquirer": "^7.3.3",
     "lusca": "^1.6.1",
     "mongoose": "5.5.2",

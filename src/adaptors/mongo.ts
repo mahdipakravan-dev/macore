@@ -1,6 +1,5 @@
 // Connect to MongoDB
 import mongoose, { ConnectionOptions } from "mongoose";
-import Adaptor from "../components/adaptor";
 import construct = Reflect.construct;
 import App from "../components/app";
 
