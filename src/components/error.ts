@@ -31,23 +31,3 @@ export class InternalServerError extends ClientError {
     super(500, name, details, message);
   }
 }
-
-export class PassportError extends ClientError {
-  constructor(error: ClientError, statusCode = 401, name = "unAuthorized") {
-    super (error.status || statusCode, error.name || name, error.details, error.message);
-  }
-}
-
-export class RequiredAdaptor extends InternalServerError {
-  constructor(adaptor: string) {
-    super(`${adaptor}_IS_REQUIRED`, `You must add ${adaptor} as required adaptor in your 'APP' constructor`);
-  }
-}
-
-export class RequiredConfig extends InternalServerError {
-  constructor(adaptor: string) {
-    super(`CONFIG_FOR_${adaptor}_IS_REQUIRED`,
-      `You must define ${adaptor} definition in your 'APP' constructor as a 'ConfigurableAdaptor'.
-       You must Also set proper config in it.`);
-  }
-}

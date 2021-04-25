@@ -10,6 +10,8 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
 
 <p>Under the hood, Macore makes use of <a href="https://expressjs.com/" target="_blank">Express</a> .
 
+<h5>Also I Use Lot Of Design Patterns inside this Module !!</a> .
+
 ## Table Of Macore Features
 
 - [Quick Start](#quick-start)
@@ -18,8 +20,10 @@ Macore is a framework for building easy and fast <a href="http://nodejs.org" tar
     - [Validation](#validation)
     - [ApiService](#apiservice)
     - [Chalk](#chalk)
-    - [AllowOrigin](#allow-origin)
 - [ORM](#orm)
+- [Payment](#payment)
+  - [Custom Payment](#payment-custom)
+  - [Vandar](#payment-vandar)
 
 ## Quick Start
 
@@ -100,13 +104,6 @@ This is Really Can Help You in any projects
   console.log(ch.red("Hello With Red Color"))
 ```
 
-### `Allow Origin`
-**To Fix Connection With Your API Problems**
-```
-  import AllowOriginMd from '@mahdi.js/macore/middlewares/origin'
-  app.use(AllowOriginMd)
-```
-
 <br/>
 <hr/>
 
@@ -141,4 +138,47 @@ This is Really Can Help You in any projects
 2- End! , Use EveryWhere :)
 ```
     const users = await User.find({})
+```
+
+## Payment
+i Created an StrategyPattern For Implement any Payment inside your code easily 
+
+### `Vandar Payment`
+> First Put Below Configuration inside your .env file
+```
+  (.ENV)
+      VANDAR_GET_TOKEN_URL=https://ipg.vandar.io/api/v3/send
+      VANDAR_TRANSACTION_URL=https://ipg.vandar.io/api/v3/send
+      VANDAR_TRANSACTION_URL=https://ipg.vandar.io/api/v3/transaction
+      VANDAR_VERIFY_URL=https://ipg.vandar.io/api/v3/verify
+      VANDAR_CALLBACK_URL=/
+      VANDAR_API_KEY=
+```
+```
+  (Your Code)
+      import {VandarPaymentStrategy} from "../src/utils/Payment/vandar/vandar";
+      
+      const VandarPayment = new VandarPaymentStrategy()
+      VandarPayment.getToken({factorNumber : "test" , amount : 10000}) // Return A Token
+      VandarPayment.verify({token : "123"})
+      VandarPayment.transaction({token : "123"})
+```
+
+### `Custom Payment`
+
+```
+  class customPayment extends PaymentStrategy<
+      IToken , OToken ,
+      ITransaction , OTransaction ,
+      IVerify , OVerifyany
+  >{
+
+    getToken(payload: IToken): OToken {}
+
+    transaction(payload: ITransaction): OTransaction {}
+
+    verify(payload: IVerify): OVerify {}
+
+  }
+
 ```

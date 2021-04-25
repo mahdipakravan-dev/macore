@@ -7,20 +7,20 @@ import express , {Express} from "express";
 import chalk from 'chalk'
 import * as fs from "fs";
 import dotenv from 'dotenv'
-import {bodyparser} from "../configuration/bodyparser";
-import cookie from "../configuration/cookie";
-import session, {ISessionConfig} from "../configuration/session";
-import view, {IViewConfig} from "../configuration/view";
+import {express as expressConfig} from "../adaptors/express";
+import cookie from "../adaptors/cookie";
+import session, {ISessionConfig} from "../adaptors/session";
+import view, {IViewConfig} from "../adaptors/view";
 import {Request_Methods} from "../types/interfaces";
 import ApiServices from "../utils/apiService";
-import MongoAdaptor from '../configuration/mongo'
+import MongoAdaptor from '../adaptors/mongo'
 
 export default class App {
     _app : Express = express()
 
     constructor(
         port ?: number|string ,
-        host ?: string ,
+        host ?: string|null ,
         cookieSecret ?: string|null ,
         sessionConfig ?: ISessionConfig | null ,
         viewConfig ?: IViewConfig|null ,
@@ -31,7 +31,7 @@ export default class App {
 
         this.envConfig()
 
-        bodyparser(this._app)
+        expressConfig(this._app)
         if(cookieSecret) cookie(this._app , cookieSecret)
         if(sessionConfig) session(this._app , sessionConfig)
         if(viewConfig) view(this._app , viewConfig)
@@ -42,6 +42,10 @@ export default class App {
         this._app.listen(this.get("port") || port , callback)
         console.log(`
         -------- ${chalk.blue("Server STARTED ON : ")} => ${this.get("host")}:${this.get("port")} --------------------`)
+    }
+
+    public group(path:string , middlewares : any[] , ){
+        this._app.use(path)
     }
 
     public route(path:string , method : Request_Methods , ...middlewareAndControllers : any[]){

@@ -1,6 +1,6 @@
 /**
- * Version : 0.0.6
- * Changes : You Can Create Instance of your apiService
+ * Version : 0.0.7
+ * Changes : Static CallService Function
 */
 import axios from 'axios'
 import {Request_Methods} from "../types/interfaces";
@@ -21,7 +21,7 @@ export default class ApiService{
    * @param headers : OPTIONAL example : {allow-origin : true}
    */
   constructor(
-      protected uri : string,
+      protected uri ?: string,
       protected headers ?: any
   ) {}
 
@@ -42,8 +42,9 @@ export default class ApiService{
       ...this.headers ,
       ...header
     }
+    const endpoint = url.indexOf("http") >= 0 ? url : (this.uri + url)
     const requestOptions = {
-      url : this.uri + url ,
+      url : endpoint,
       headers ,
       method ,
       body : body || {}

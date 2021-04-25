@@ -1,7 +1,7 @@
 import Middleware from '../types/middleware'
 import {Request , Response , NextFunction} from "express";
 
-export default class AllowOriginMd extends Middleware{
+export default new class AllowOriginMd extends Middleware{
     handle(req: Request , res: Response , next: NextFunction) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
